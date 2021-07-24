@@ -87,7 +87,7 @@ void task2(){
             std::cout << "X won" << std::endl;
             break;
         }
-        else if(!ticTacToeCheckKeepContinue(field)){
+        else if(!ticTacToeContinue(field)){
             std::cout << "draw" << std::endl;
             break;
         }
@@ -96,10 +96,6 @@ void task2(){
         printArray(field);
         if (ticTacToeCheckVIctory('0', field)){
             std::cout << "0 won" << std::endl;
-            break;
-        }
-        else if(!ticTacToeCheckKeepContinue(field)){
-            std::cout << "draw" << std::endl;
             break;
         }
     }
@@ -245,16 +241,23 @@ void task7(){
      * */
 
     bool bubbles[12][12];
-    int row, col = -1;
+    int rowStart, colStart, rowEnd, colEnd = -1;
     initBubbles(bubbles);
-    while(bubblesAvailable(bubbles)){
+    while(bubblesAvailable(bubbles, 0, 0, 12, 12)){
         printBubbles(bubbles);
         do {
-            enterData(row, 0, 12, "row");
-            enterData(col, 0, 12, "column");
-        } while (!bubbles[row][col]);
-        bubbles[row][col] = false;
-        std::cout << "Pop!" << std::endl;
+            enterData(rowStart, 0, 12, "start row");
+            enterData(colStart, 0, 12, "start column");
+            enterData(rowEnd, rowStart, 12, "end row");
+            enterData(colEnd, colStart, 12, "end column");
+        } while (!bubblesAvailable(bubbles, rowStart, colStart, rowEnd, colEnd));
+
+        for (int row = rowStart; row < rowEnd; row++) {
+            for (int col = colStart; col < colEnd; col++) {
+                bubbles[row][col] = false;
+                std::cout << "Pop!" << std::endl;
+            }
+        }
     }
 }
 
@@ -376,8 +379,8 @@ int main() {
 //    task4();
 //    task5();
 //    task6();
-//    task7();
+    task7();
 //    task8();
-    task9();
+//    task9();
     return 0;
 }

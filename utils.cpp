@@ -73,7 +73,7 @@ void ticTacToeEnter(char playerName, char field[][3]){
     field[row][col] = playerName;
 }
 
-bool ticTacToeCheckKeepContinue(char field[][3]){
+bool ticTacToeContinue(char field[][3]){
     for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
             if (field[i][j] == ' ') return true;
@@ -123,10 +123,12 @@ void enterData(int & x, int low, int high, std::string name){
     }while (x > high || x < low);
 }
 
-bool bubblesAvailable(bool bubbles[][12]){
-    for (int i = 0; i < 12; ++i){
-        for (int j = 0; j < 12; ++j){
-            if (bubbles[i][j]) return true;
+bool bubblesAvailable(bool bubbles[][12], int rowStart, int colStart, int rowEnd, int colEnd){
+    for (int i = rowStart; i < rowEnd; ++i){
+        for (int j = colStart; j < colEnd; ++j){
+            if (bubbles[i][j]) {
+                return true;
+            }
         }
     }
     return false;
